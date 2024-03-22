@@ -41,10 +41,6 @@ public class Function {
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);
 
-        if (name == null) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("this is example! hello " + obj.hello()).build();
-        } else {
-            return request.createResponseBuilder(HttpStatus.OK).body("Hello, " + name).build();
-        }
+        return request.createResponseBuilder(HttpStatus.OK).body("this is example! hello " + obj.hello()).build();
     }
 }
