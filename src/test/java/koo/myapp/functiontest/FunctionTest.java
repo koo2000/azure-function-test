@@ -25,7 +25,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 
 import koo.myapp.functiontest.app.Application;
-import koo.myapp.functiontest.app.Function;
+import koo.myapp.functiontest.app.function.Function;
 
 
 /**

@@ -5,7 +5,6 @@ import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.util.ClassUtils;
 
 import com.microsoft.azure.functions.spi.inject.FunctionInstanceInjector;
 

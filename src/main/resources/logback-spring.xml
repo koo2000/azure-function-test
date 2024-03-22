@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
 <configuration>
 
-    <springProfile name="develop">
-        <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <!-- コンソール出力 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
 
-        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>[%-5le] %lo{0}.%M:%L - %msg%n</pattern>
-            </encoder>
-        </appender>
+    <!-- アプリケーションログのファイル書き出し -->
+    <appender name="APPLIATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--ファイル名設定 -->
+        <file>./log/app.log</file>
+        <!--ログファイルのローテーション設定 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/production/app-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <!--ログ出力フォーマット設定 -->
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
 
-        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>./log/app.log</file>
-            <append>true</append>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>./log/app.%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
-                <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                    <maxFileSize>5MB</maxFileSize>
-                </timeBasedFileNamingAndTriggeringPolicy>
-                <maxHistory>31</maxHistory>
-                <cleanHistoryOnStart>true</cleanHistoryOnStart>
-            </rollingPolicy>
-            <encoder>
-                <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%-5le] [%t] %C.%M:%L - %m%n</pattern>
-            </encoder>
-        </appender>
+    <!-- ロガー -->
+    <logger name="appLogger" level="INFO">
+      <appender-ref ref="APPLIATION_LOG" />
+    </logger>
 
-        <logger name="org.springframework" level="INFO" />
-        <logger name="com.example" level="DEBUG" />
-
-        <root level="WARN">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="FILE" />
-        </root>
-    </springProfile>
-
+    <!-- ルート -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
 </configuration>

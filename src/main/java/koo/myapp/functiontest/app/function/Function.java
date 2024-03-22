@@ -1,4 +1,4 @@
-package koo.myapp.functiontest.app;
+package koo.myapp.functiontest.app.function;
 
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
@@ -8,6 +8,8 @@ import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
+
+import koo.myapp.functiontest.app.InjectedObj;
 
 import java.util.Optional;
 
@@ -41,6 +43,10 @@ public class Function {
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);
 
+        // 障害テストで使ってみるコード(ちゃんとインターセプターでエラーになることを確認)
+        // if (true) {
+        //     throw new RuntimeException("error test");
+        // }
         return request.createResponseBuilder(HttpStatus.OK).body("this is example! hello " + obj.hello()).build();
     }
 }
