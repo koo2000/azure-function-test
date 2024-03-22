@@ -1,4 +1,4 @@
-package koo.myapp.functiontest;
+package koo.myapp.functiontest.app;
 
 import org.springframework.stereotype.Component;
 
