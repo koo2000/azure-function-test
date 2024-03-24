@@ -13,6 +13,8 @@ import koo.myapp.functiontest.app.InjectedObj;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Function {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private InjectedObj obj;
@@ -38,7 +42,9 @@ public class Function {
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
-
+        logger.info("info log");
+        logger.error("error log");
+        logger.warn("info log");
         // Parse query parameter
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);
