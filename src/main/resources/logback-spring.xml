@@ -9,28 +9,21 @@
             <charset>UTF-8</charset>
             <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
         </encoder>
+        <springProfile name="prod">
+          <!-- 
+            本番環境用設定
+            :本番では”APPLICATIONINSIGHTS_ENABLE_AGENT true” の設定により、
+            アペンダーがなくてもApplication Insightes のエージェントが
+            取得してくれます.
+            本番環境ではSPRING_PROFILES_ACTIVE=prod を設定してください。
+            -->
+          <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>OFF</level>
+          </filter>  
+        </springProfile>
+        
     </appender>
 
-    <!-- アプリケーションログのファイル書き出し -->
-    <appender name="APPLIATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--ファイル名設定 -->
-        <file>./log/app.log</file>
-        <!--ログファイルのローテーション設定 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/production/app-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
-            <maxHistory>3</maxHistory>
-        </rollingPolicy>
-        <!--ログ出力フォーマット設定 -->
-        <encoder>
-            <charset>UTF-8</charset>
-            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <!-- ロガー -->
-    <logger name="appLogger" level="INFO">
-      <appender-ref ref="APPLIATION_LOG" />
-    </logger>
 
     <!-- ルート -->
     <root level="INFO">

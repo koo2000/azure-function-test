@@ -16,6 +16,8 @@ import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
+import koo.myapp.functiontest.app.InjectedObj;
+
 /**
  * Azure Functions with HTTP Trigger.
  */
@@ -41,8 +43,11 @@ public class Function {
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
         logger.info("info log");
+        logger.warn("warn log");
         logger.error("error log");
-        logger.warn("info log");
+
+        logger.info("exception log", new RuntimeException("exception test"));
+
         // Parse query parameter
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);

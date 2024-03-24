@@ -1,4 +1,4 @@
-package koo.myapp.functiontest.app.function;
+package koo.myapp.functiontest.app;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
